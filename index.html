@@ -1,1 +1,455 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Botchan — Developer Portfolio</title>
+    <meta
+      name="description"
+      content="Minimalist developer portfolio and interactive 3D Git commit architecture graph for Botchan."
+    />
+    <meta property="og:title" content="Botchan — Developer Portfolio" />
+    <meta
+      property="og:description"
+      content="Minimalist developer portfolio and interactive 3D Git commit architecture graph for Botchan."
+    />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
 
+    <!-- Google Fonts: Space Grotesk (headings), IBM Plex Mono (labels), Inter (body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="./style.css" />
+
+    <!-- Import Map for Three.js v0.160.0 ES Modules (works directly on GitHub Pages without bundlers) -->
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+        }
+      }
+    </script>
+  </head>
+  <body id="top">
+    <!-- Top Navigation Bar (3-Zone Contract: Brand | Nav Links | Theme Toggle) -->
+    <header class="site-header">
+      <div class="container header-inner">
+        <a href="#top" class="brand-mark">Botchan</a>
+
+        <nav class="site-nav" aria-label="Primary sections">
+          <a href="#now-building" class="nav-link">01. Building</a>
+          <a href="#log" class="nav-link">02. Log</a>
+          <a href="#projects" class="nav-link">03. Projects</a>
+          <a href="#stack" class="nav-link">04. Stack</a>
+        </nav>
+
+        <button
+          id="theme-toggle"
+          type="button"
+          class="theme-toggle"
+          aria-label="Switch to dark theme"
+          aria-pressed="false"
+        >
+          <span class="theme-toggle-label" id="theme-toggle-text">THEME: LIGHT</span>
+        </button>
+      </div>
+    </header>
+
+    <main class="site-main">
+      <!-- HERO SECTION with 3D Git Commit Graph -->
+      <section class="hero-section" aria-labelledby="hero-heading">
+        <div class="container hero-grid">
+          <!-- Left Column: Editorial & Architectural Intro -->
+          <div class="hero-content">
+            <div class="hero-meta-row">
+              <span class="mono-label">INDEX 00 / GIT ARCHITECTURE &amp; NOTES</span>
+            </div>
+
+            <h1 id="hero-heading" class="hero-title">
+              Botchan
+              <span class="hero-subtitle">
+                Learning Git topologies and modular software architectures from first principles.
+              </span>
+            </h1>
+
+            <p class="hero-description">
+              A public notebook and commit graph by a beginner developer studying version control internals,
+              directed acyclic graphs, and dependency-free web systems with plain HTML, CSS, Vanilla JavaScript,
+              and Three.js.
+            </p>
+
+            <!-- Active Commit Readout Panel (updates on 3D node hover/tap/selection) -->
+            <div class="commit-inspector" id="commit-inspector" aria-live="polite">
+              <div class="inspector-header">
+                <span class="mono-label">INSPECTED COMMIT NODE</span>
+                <span class="mono-label" id="inspector-branch">BRANCH: main</span>
+              </div>
+              <p class="inspector-message" id="inspector-message">
+                merge: integrate arch/state-tree into main portfolio layout
+              </p>
+              <div class="inspector-footer">
+                <span class="mono-meta" id="inspector-id">COMMIT: c09f4a2</span>
+                <span class="mono-meta" aria-hidden="true">·</span>
+                <span class="mono-meta" id="inspector-parents">PARENTS: c07c4f1, c08e5a3</span>
+                <span class="mono-meta" aria-hidden="true">·</span>
+                <span class="mono-meta" id="inspector-date">2026-10-24</span>
+              </div>
+            </div>
+
+            <div class="hero-actions">
+              <a href="#now-building" class="btn-outline">01. Now Building</a>
+              <a href="#log" class="btn-outline">02. Read Learning Log</a>
+              <button type="button" id="reset-graph-btn" class="btn-subtle">
+                Reset 3D Orbit
+              </button>
+            </div>
+          </div>
+
+          <!-- Right Column: 3D Git Commit Graph Viewport -->
+          <div class="hero-stage-wrapper">
+            <div class="stage-topbar">
+              <span class="mono-label">3D GIT DAG — 1 MAIN / 2 SIDE BRANCHES</span>
+              <div class="stage-legend" aria-label="Branch color legend">
+                <span class="legend-item">
+                  <span class="legend-swatch swatch-main" aria-hidden="true"></span>
+                  <span class="mono-label">MAIN</span>
+                </span>
+                <span class="legend-item">
+                  <span class="legend-swatch swatch-side" aria-hidden="true"></span>
+                  <span class="mono-label">FEATURE / ARCH</span>
+                </span>
+              </div>
+            </div>
+
+            <div
+              id="graph-container"
+              class="graph-container"
+              data-testid="graph-container"
+              role="region"
+              aria-label="Interactive 3D Git Commit Graph. Drag to orbit, hover or tap a commit node to inspect."
+            >
+              <canvas id="commit-graph-canvas" data-testid="commit-graph-canvas"></canvas>
+
+              <!-- 2D SVG Fallback Container (populated automatically if WebGL fails to initialize) -->
+              <div
+                id="svg-fallback-container"
+                class="svg-fallback-container"
+                data-testid="svg-fallback-container"
+                hidden
+              ></div>
+
+              <!-- HTML Tooltip positioned via Raycaster on node hover/tap -->
+              <div
+                id="commit-tooltip"
+                class="commit-tooltip"
+                data-testid="commit-tooltip"
+                role="status"
+                aria-live="polite"
+                hidden
+              >
+                <div class="tooltip-top">
+                  <span id="tooltip-id" class="tooltip-hash">c01a8f0</span>
+                  <span id="tooltip-branch" class="tooltip-branch">main</span>
+                </div>
+                <p id="tooltip-message" class="tooltip-message">init: repository &amp; semantic HTML structure</p>
+                <span id="tooltip-date" class="tooltip-date">2026-09-12</span>
+              </div>
+            </div>
+
+            <!-- Accessible Node Selector Strip (allows keyboard / tap inspection of commits) -->
+            <div class="stage-bottombar">
+              <span class="mono-label">COMMIT SEQUENCE:</span>
+              <div
+                id="commit-node-buttons"
+                class="commit-node-buttons"
+                role="group"
+                aria-label="Select a commit node in the graph"
+              ></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 01: NOW BUILDING -->
+      <section id="now-building" class="portfolio-section" aria-labelledby="heading-now-building">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-number">01</span>
+            <h2 id="heading-now-building" class="section-title">Now Building</h2>
+            <span class="mono-label section-kicker">CURRENT FOCUS</span>
+          </div>
+
+          <article class="building-card" data-testid="now-building-card">
+            <div class="building-card-top">
+              <div class="building-title-group">
+                <span class="mono-label">REPOSITORY / EXPERIMENT</span>
+                <h3 class="building-project-name">git-dag-visualizer</h3>
+              </div>
+
+              <!-- Status badge: [learning / in progress / done] -->
+              <div class="status-selector-group" role="group" aria-label="Project status">
+                <span class="mono-label">STATUS:</span>
+                <span id="building-status-badge" class="status-badge" data-status="in progress">
+                  [in progress]
+                </span>
+                <button
+                  type="button"
+                  id="cycle-status-btn"
+                  class="btn-micro"
+                  aria-label="Cycle project status between learning, in progress, and done"
+                >
+                  Cycle State
+                </button>
+              </div>
+            </div>
+
+            <p class="building-note">
+              Constructing a zero-dependency Git commit graph parser and 3D spatial renderer. Focused on understanding
+              how parent commit pointers form a directed acyclic graph (DAG), how three-way merges reconcile divergent
+              side branches, and how to separate pure state data from rendering logic.
+            </p>
+
+            <div class="building-meta-footer">
+              <span class="mono-meta">BRANCH: feat/webgl-graph</span>
+              <span class="mono-meta" aria-hidden="true">·</span>
+              <span class="mono-meta">STACK: VANILLA JS + THREE.JS r160</span>
+              <span class="mono-meta" aria-hidden="true">·</span>
+              <span class="mono-meta">TARGET: GITHUB PAGES</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- SECTION 02: LOG -->
+      <section id="log" class="portfolio-section" aria-labelledby="heading-log">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-number">02</span>
+            <h2 id="heading-log" class="section-title">Log</h2>
+            <div class="log-filter-bar" role="group" aria-label="Filter log entries by topic">
+              <button type="button" class="filter-btn is-active" data-filter="all">All</button>
+              <button type="button" class="filter-btn" data-filter="git">Git</button>
+              <button type="button" class="filter-btn" data-filter="architecture">Architecture</button>
+              <button type="button" class="filter-btn" data-filter="threejs">Three.js</button>
+            </div>
+          </div>
+
+          <!--
+            HOW TO ADD A NEW LOG ENTRY:
+            Option A (Recommended): Add a new object to `CONFIG.logEntries` at the top of `script.js`.
+            Option B (Static HTML): Copy one `<li class="log-item">` block below and update the date,
+            topic (`data-topic`), and `<p class="log-text">` content.
+          -->
+          <ul id="log-list" class="log-list" data-testid="log-list">
+            <li class="log-item" data-topic="threejs">
+              <time class="log-date mono-label" datetime="2026-10-24">2026-10-24</time>
+              <span class="log-topic mono-label">THREE.JS</span>
+              <p class="log-text">
+                Decoupled scroll offset from the PerspectiveCamera by moving the parent THREE.Group along the Y-axis
+                instead, preventing gimble and target conflicts with OrbitControls damping.
+              </p>
+            </li>
+            <li class="log-item" data-topic="git">
+              <time class="log-date mono-label" datetime="2026-10-19">2026-10-19</time>
+              <span class="log-topic mono-label">GIT</span>
+              <p class="log-text">
+                Practiced resolving a non-fast-forward merge between main and two feature branches; mapped how merge
+                commits store two parent SHA hashes in chronological order.
+              </p>
+            </li>
+            <li class="log-item" data-topic="architecture">
+              <time class="log-date mono-label" datetime="2026-10-11">2026-10-11</time>
+              <span class="log-topic mono-label">ARCHITECTURE</span>
+              <p class="log-text">
+                Refactored portfolio state into a single declarative CONFIG object so both the WebGL 3D scene and the
+                2D SVG fallback read from identical commit node coordinates.
+              </p>
+            </li>
+            <li class="log-item" data-topic="threejs">
+              <time class="log-date mono-label" datetime="2026-10-03">2026-10-03</time>
+              <span class="log-topic mono-label">THREE.JS</span>
+              <p class="log-text">
+                Added IntersectionObserver to pause the requestAnimationFrame loop when the hero canvas leaves the
+                viewport, plus prefers-reduced-motion checks for accessibility.
+              </p>
+            </li>
+            <li class="log-item" data-topic="git">
+              <time class="log-date mono-label" datetime="2026-09-22">2026-09-22</time>
+              <span class="log-topic mono-label">GIT</span>
+              <p class="log-text">
+                Learned the difference between git reset, git revert, and git checkout when inspecting historical
+                commits in a detached HEAD state.
+              </p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- SECTION 03: PROJECTS -->
+      <section id="projects" class="portfolio-section" aria-labelledby="heading-projects">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-number">03</span>
+            <h2 id="heading-projects" class="section-title">Projects</h2>
+            <span class="mono-label section-kicker">SELECTED REPOSITORIES</span>
+          </div>
+
+          <div class="projects-grid" data-testid="projects-grid">
+            <!-- Project Card 1 -->
+            <article class="project-card">
+              <div class="project-card-header">
+                <span class="mono-label project-index">03.1</span>
+                <span class="mono-label project-status">[in progress]</span>
+              </div>
+              <h3 class="project-title">commit-graph-3d</h3>
+              <p class="project-summary">
+                Interactive 3D Git commit history visualizer built with Three.js v0.160.0 ES modules, OrbitControls,
+                and an automatic 2D SVG fallback.
+              </p>
+              <div class="project-card-footer">
+                <span class="mono-meta">HTML · CSS · THREE.JS</span>
+                <a
+                  href="https://github.com/botchan-dev/commit-graph-3d"
+                  class="project-link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  GitHub ↗
+                </a>
+              </div>
+            </article>
+
+            <!-- Project Card 2 -->
+            <article class="project-card">
+              <div class="project-card-header">
+                <span class="mono-label project-index">03.2</span>
+                <span class="mono-label project-status">[learning]</span>
+              </div>
+              <h3 class="project-title">state-tree-sandbox</h3>
+              <p class="project-summary">
+                Minimalist Vanilla JS architectural study comparing event-bus patterns, immutable state trees, and
+                unidirectional data flow without frameworks.
+              </p>
+              <div class="project-card-footer">
+                <span class="mono-meta">VANILLA JS · ES MODULES</span>
+                <a
+                  href="https://github.com/botchan-dev/state-tree-sandbox"
+                  class="project-link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  GitHub ↗
+                </a>
+              </div>
+            </article>
+
+            <!-- Project Card 3 -->
+            <article class="project-card">
+              <div class="project-card-header">
+                <span class="mono-label project-index">03.3</span>
+                <span class="mono-label project-status">[done]</span>
+              </div>
+              <h3 class="project-title">git-worktree-notes</h3>
+              <p class="project-summary">
+                Plain-text field guide and shell script collection documenting branching workflows, rebasing diagrams,
+                and clean commit hygiene.
+              </p>
+              <div class="project-card-footer">
+                <span class="mono-meta">GIT · SHELL · MARKDOWN</span>
+                <a
+                  href="https://github.com/botchan-dev/git-worktree-notes"
+                  class="project-link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  GitHub ↗
+                </a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 04: STACK -->
+      <section id="stack" class="portfolio-section" aria-labelledby="heading-stack">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-number">04</span>
+            <h2 id="heading-stack" class="section-title">Stack</h2>
+            <span class="mono-label section-kicker">CURRENTLY LEARNING</span>
+          </div>
+
+          <ul class="stack-list" data-testid="stack-list">
+            <li class="stack-item">
+              <div class="stack-name-col">
+                <span class="mono-label stack-index">01</span>
+                <span class="stack-name">HTML</span>
+              </div>
+              <span class="mono-label stack-focus">SEMANTIC DOCUMENT STRUCTURE &amp; ACCESSIBILITY</span>
+              <span class="stack-note">Landmarks, ARIA live regions, keyboard navigation, and zero-bundler ES module import maps.</span>
+            </li>
+            <li class="stack-item">
+              <div class="stack-name-col">
+                <span class="mono-label stack-index">02</span>
+                <span class="stack-name">CSS</span>
+              </div>
+              <span class="mono-label stack-focus">CUSTOM PROPERTIES &amp; 1PX ARCHITECTURAL GRIDS</span>
+              <span class="stack-note">Theme tokens, responsive fluid typography, tabular numerals, and reduced-motion media queries.</span>
+            </li>
+            <li class="stack-item">
+              <div class="stack-name-col">
+                <span class="mono-label stack-index">03</span>
+                <span class="stack-name">Git</span>
+              </div>
+              <span class="mono-label stack-focus">DIRECTED ACYCLIC GRAPHS &amp; BRANCH TOPOLOGY</span>
+              <span class="stack-note">Commit parent pointers, feature branch isolation, three-way merges, and history inspection.</span>
+            </li>
+            <li class="stack-item">
+              <div class="stack-name-col">
+                <span class="mono-label stack-index">04</span>
+                <span class="stack-name">Three.js</span>
+              </div>
+              <span class="mono-label stack-focus">SCENE GRAPHS, RAYCASTING &amp; ORBIT CONTROLS</span>
+              <span class="stack-note">Object3D hierarchies, buffer geometries, dynamic material syncing, and viewport-aware rendering.</span>
+            </li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div class="footer-left">
+          <span class="mono-label">botchan.tech</span>
+        </div>
+
+        <div class="footer-links">
+          <a href="mailto:hello@botchan.tech" class="footer-link">hello@botchan.tech</a>
+          <span class="mono-meta" aria-hidden="true">/</span>
+          <a
+            href="https://github.com/botchan-dev"
+            class="footer-link"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            GitHub
+          </a>
+          <span class="mono-meta" aria-hidden="true">/</span>
+          <a href="#now-building" id="library-botchan-link" class="footer-link">Library ↔ Botchan</a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Application Scripts (Vanilla JS ES Modules) -->
+    <script type="module" src="./script.js"></script>
+    <script type="module" src="./graph3d.js"></script>
+  </body>
+</html>
