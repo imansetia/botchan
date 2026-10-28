@@ -194,6 +194,7 @@ function initCommitGraph3D() {
   const nodeButtonsContainer = document.getElementById('commit-node-buttons');
   const resetGraphBtn = document.getElementById('reset-graph-btn');
   const pauseRotationBtn = document.getElementById('pause-rotation-btn');
+  const graphRenderMode = document.getElementById('graph-render-mode');
 
   if (!container || !canvas) return;
 
@@ -270,6 +271,9 @@ function initCommitGraph3D() {
 
   function activateSvgFallback() {
     canvas.style.display = 'none';
+    if (graphRenderMode) {
+      graphRenderMode.hidden = false;
+    }
     if (pauseRotationBtn) {
       pauseRotationBtn.disabled = true;
       pauseRotationBtn.textContent = 'Rotation unavailable';

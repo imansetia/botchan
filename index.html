@@ -69,7 +69,7 @@
           <!-- Left Column: Editorial & Architectural Intro -->
           <div class="hero-content">
             <div class="hero-meta-row">
-              <span class="mono-label">INDEX 00 / GIT ARCHITECTURE &amp; NOTES</span>
+              <span class="mono-label">GIT ARCHITECTURE &amp; NOTES</span>
             </div>
 
             <h1 id="hero-heading" class="hero-title">
@@ -83,6 +83,9 @@
               A public notebook and commit graph by a beginner developer studying version control internals,
               directed acyclic graphs, and dependency-free web systems with plain HTML, CSS, Vanilla JavaScript,
               and Three.js.
+            </p>
+            <p class="hero-capability">
+              I’m learning to build dependency-free web projects with modular architecture, Git, Three.js, and accessible interfaces.
             </p>
 
             <!-- Active Commit Readout Panel (updates on 3D node hover/tap/selection) -->
@@ -135,7 +138,8 @@
               <div class="stage-heading">
                 <span class="mono-label">3D GIT DAG — 1 MAIN / 2 SIDE BRANCHES</span>
                 <p class="graph-explanation">
-                  This DAG maps commits from parent to child, including the branches that merge back together.
+                  A parent commit points to the commit it came from. A branch is a line of commits that can diverge.
+                  A merge brings separate branches back together.
                 </p>
                 <p class="graph-hint">Drag to orbit · Select a node to inspect</p>
               </div>
@@ -176,6 +180,9 @@
                 data-testid="svg-fallback-container"
                 hidden
               ></div>
+              <p id="graph-render-mode" class="graph-render-mode" role="status" hidden>
+                Showing the 2D SVG graph; WebGL is not in use.
+              </p>
 
               <!-- HTML Tooltip positioned via Raycaster on node hover/tap -->
               <div
@@ -215,7 +222,7 @@
           <div class="section-header">
             <span class="section-number">01</span>
             <h2 id="heading-now-building" class="section-title">Now Building</h2>
-            <span class="mono-label section-kicker">CURRENT FOCUS</span>
+            <span class="mono-label section-kicker">IN PROGRESS</span>
           </div>
 
           <article class="building-card" data-testid="now-building-card">
@@ -237,7 +244,7 @@
                   class="btn-micro"
                   aria-label="Cycle project status between learning, in progress, and done"
                 >
-                  Cycle State
+                  Change status
                 </button>
               </div>
             </div>
@@ -475,7 +482,7 @@
             GitHub
           </a>
           <span class="mono-meta" aria-hidden="true">/</span>
-          <a href="#now-building" id="library-botchan-link" class="footer-link">Library ↔ Botchan</a>
+          <a href="#now-building" id="library-botchan-link" class="footer-link">Now Building</a>
         </div>
       </div>
     </footer>

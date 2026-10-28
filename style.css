@@ -269,6 +269,13 @@ h4 {
   line-height: 1.65;
 }
 
+.hero-capability {
+  font-size: 0.9375rem;
+  color: var(--text);
+  max-width: 60ch;
+  line-height: 1.55;
+}
+
 /* Active Commit Readout Box */
 .commit-inspector {
   border: 1px solid var(--border);
@@ -506,6 +513,24 @@ h4 {
 }
 
 .svg-fallback-container[hidden] {
+  display: none;
+}
+
+.graph-render-mode {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  max-width: 24ch;
+  padding: 0.35rem 0.5rem;
+  border: 1px solid var(--border);
+  background-color: var(--bg);
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  line-height: 1.4;
+}
+
+.graph-render-mode[hidden] {
   display: none;
 }
 

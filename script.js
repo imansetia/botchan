@@ -407,7 +407,7 @@ function initPortfolioUI() {
     });
   });
 
-  // 5. Footer "Library ↔ Botchan" switch link smooth scroll & highlight
+  // 5. Footer "Now Building" switch link smooth scroll & highlight
   if (libraryLink) {
     libraryLink.addEventListener('click', (e) => {
       e.preventDefault();
