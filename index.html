@@ -115,7 +115,13 @@
           <!-- Right Column: 3D Git Commit Graph Viewport -->
           <div class="hero-stage-wrapper">
             <div class="stage-topbar">
-              <span class="mono-label">3D GIT DAG — 1 MAIN / 2 SIDE BRANCHES</span>
+              <div class="stage-heading">
+                <span class="mono-label">3D GIT DAG — 1 MAIN / 2 SIDE BRANCHES</span>
+                <p class="graph-explanation">
+                  This DAG maps commits from parent to child, including the branches that merge back together.
+                </p>
+                <p class="graph-hint">Drag to orbit · Select a node to inspect</p>
+              </div>
               <div class="stage-legend" aria-label="Branch color legend">
                 <span class="legend-item">
                   <span class="legend-swatch swatch-main" aria-hidden="true"></span>
@@ -126,6 +132,14 @@
                   <span class="mono-label">FEATURE / ARCH</span>
                 </span>
               </div>
+              <button
+                type="button"
+                id="pause-rotation-btn"
+                class="btn-subtle graph-pause-btn"
+                aria-pressed="false"
+              >
+                Pause rotation
+              </button>
             </div>
 
             <div

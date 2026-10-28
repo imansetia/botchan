@@ -81,6 +81,11 @@ button {
   cursor: pointer;
 }
 
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
 :focus-visible {
   outline: 1px solid var(--accent);
   outline-offset: 3px;
@@ -375,10 +380,39 @@ h4 {
   flex-wrap: wrap;
 }
 
+.stage-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 13rem;
+}
+
+.graph-explanation,
+.graph-hint {
+  margin: 0;
+  line-height: 1.45;
+}
+
+.graph-explanation {
+  color: var(--text);
+  font-size: 0.8125rem;
+  max-width: 42ch;
+}
+
+.graph-hint {
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+}
+
 .stage-legend {
   display: flex;
   align-items: center;
   gap: 1rem;
+}
+
+.graph-pause-btn {
+  margin-left: auto;
 }
 
 .legend-item {

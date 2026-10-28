@@ -193,6 +193,7 @@ function initCommitGraph3D() {
   const tooltipDateEl = document.getElementById('tooltip-date');
   const nodeButtonsContainer = document.getElementById('commit-node-buttons');
   const resetGraphBtn = document.getElementById('reset-graph-btn');
+  const pauseRotationBtn = document.getElementById('pause-rotation-btn');
 
   if (!container || !canvas) return;
 
@@ -269,6 +270,14 @@ function initCommitGraph3D() {
 
   function activateSvgFallback() {
     canvas.style.display = 'none';
+    if (pauseRotationBtn) {
+      pauseRotationBtn.disabled = true;
+      pauseRotationBtn.textContent = 'Rotation unavailable';
+      pauseRotationBtn.setAttribute(
+        'aria-label',
+        'Idle rotation is unavailable in the 2D graph fallback',
+      );
+    }
     if (!svgFallbackContainer) return;
     svgFallbackContainer.hidden = false;
 
@@ -677,6 +686,20 @@ function initCommitGraph3D() {
     });
   }
 
+  let isRotationPaused = false;
+  if (pauseRotationBtn) {
+    pauseRotationBtn.addEventListener('click', () => {
+      isRotationPaused = !isRotationPaused;
+      pauseRotationBtn.setAttribute(
+        'aria-pressed',
+        String(isRotationPaused),
+      );
+      pauseRotationBtn.textContent = isRotationPaused
+        ? 'Resume rotation'
+        : 'Pause rotation';
+    });
+  }
+
   // Scroll Animation State: Moves `graphGroup.position.y` instead of `camera`
   let targetScrollGroupY = 0;
   function updateScrollTarget() {
@@ -768,7 +791,7 @@ function initCommitGraph3D() {
     }
 
     // 2. Slow Idle Rotation (respects prefers-reduced-motion)
-    if (!prefersReducedMotion) {
+    if (!prefersReducedMotion && !isRotationPaused) {
       graphGroup.rotation.y += GRAPH_CONFIG.animation.idleRotationSpeed * dt;
     }
 
