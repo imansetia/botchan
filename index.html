@@ -105,21 +105,27 @@
 
             <div class="hero-actions">
               <a
-                href="https://github.com/botchan-dev"
+                href="#graph-container"
                 class="btn-outline hero-action-primary"
-                target="_blank"
-                rel="noopener noreferrer"
               >
-                View GitHub Repositories
+                Explore the graph
               </a>
-              <a href="mailto:hello@botchan.tech" class="btn-outline hero-action-secondary">
-                Get in Touch
-              </a>
-              <a href="#now-building" class="btn-outline">01. Now Building</a>
-              <a href="#log" class="btn-outline">02. Read Learning Log</a>
-              <button type="button" id="reset-graph-btn" class="btn-subtle">
-                Reset 3D Orbit
-              </button>
+              <div class="hero-secondary-actions">
+                <a
+                  href="https://github.com/botchan-dev"
+                  class="hero-secondary-link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  View GitHub Repositories
+                </a>
+                <a href="mailto:hello@botchan.tech" class="hero-secondary-link">Get in Touch</a>
+                <a href="#now-building" class="hero-secondary-link">01. Now Building</a>
+                <a href="#log" class="hero-secondary-link">02. Read Learning Log</a>
+                <button type="button" id="reset-graph-btn" class="btn-subtle hero-reset-action">
+                  Reset 3D Orbit
+                </button>
+              </div>
             </div>
           </div>
 
@@ -158,6 +164,7 @@
               class="graph-container"
               data-testid="graph-container"
               role="region"
+              tabindex="-1"
               aria-label="Interactive 3D Git Commit Graph. Drag to orbit, hover or tap a commit node to inspect."
             >
               <canvas id="commit-graph-canvas" data-testid="commit-graph-canvas"></canvas>
@@ -278,7 +285,7 @@
               <span class="log-topic mono-label">THREE.JS</span>
               <p class="log-text">
                 Decoupled scroll offset from the PerspectiveCamera by moving the parent THREE.Group along the Y-axis
-                instead, preventing gimble and target conflicts with OrbitControls damping.
+                instead, preventing gimbal and target conflicts with OrbitControls damping.
               </p>
             </li>
             <li class="log-item" data-topic="git">
