@@ -271,7 +271,6 @@ function initPortfolioUI() {
   const filterButtons = document.querySelectorAll('.filter-btn');
   const statusBadgeEl = document.getElementById('building-status-badge');
   const cycleStatusBtn = document.getElementById('cycle-status-btn');
-  const libraryLink = document.getElementById('library-botchan-link');
 
   // 1. Theme State Management & Custom Event Broadcast for Three.js Sync
   let currentTheme = 'light';
@@ -407,16 +406,6 @@ function initPortfolioUI() {
     });
   });
 
-  // 5. Footer "Now Building" switch link smooth scroll & highlight
-  if (libraryLink) {
-    libraryLink.addEventListener('click', (e) => {
-      e.preventDefault();
-      const logSection = document.getElementById('log');
-      if (logSection) {
-        logSection.scrollIntoView({ behavior: 'smooth' });
-      }
-    });
-  }
 }
 
 if (typeof window !== 'undefined' && typeof document !== 'undefined') {

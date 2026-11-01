@@ -75,17 +75,16 @@
             <h1 id="hero-heading" class="hero-title">
               Botchan
               <span class="hero-subtitle">
-                Learning Git topologies and modular software architectures from first principles.
+                A developer portfolio focused on Git, modular architecture, and accessible web systems.
               </span>
             </h1>
 
             <p class="hero-description">
-              A public notebook and commit graph by a beginner developer studying version control internals,
-              directed acyclic graphs, and dependency-free web systems with plain HTML, CSS, Vanilla JavaScript,
-              and Three.js.
+              A public notebook and commit graph by a beginner developer building a stronger foundation in version
+              control, software architecture, and dependency-free web systems.
             </p>
             <p class="hero-capability">
-              I’m learning to build dependency-free web projects with modular architecture, Git, Three.js, and accessible interfaces.
+              Follow the work through the interactive graph, dated learning log, and linked repositories.
             </p>
 
             <!-- Active Commit Readout Panel (updates on 3D node hover/tap/selection) -->
@@ -108,26 +107,21 @@
 
             <div class="hero-actions">
               <a
-                href="#graph-container"
+                href="#projects"
                 class="btn-outline hero-action-primary"
               >
-                Explore the graph
+                View selected projects
               </a>
               <div class="hero-secondary-actions">
                 <a
-                  href="https://github.com/botchan-dev"
+                  href="https://github.com/imansetia"
                   class="hero-secondary-link"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   View GitHub Repositories
                 </a>
-                <a href="mailto:hello@botchan.tech" class="hero-secondary-link">Get in Touch</a>
-                <a href="#now-building" class="hero-secondary-link">01. Now Building</a>
-                <a href="#log" class="hero-secondary-link">02. Read Learning Log</a>
-                <button type="button" id="reset-graph-btn" class="btn-subtle hero-reset-action">
-                  Reset 3D Orbit
-                </button>
+                <a href="#log" class="hero-secondary-link">Read the learning log</a>
               </div>
             </div>
           </div>
@@ -161,6 +155,9 @@
               >
                 Pause rotation
               </button>
+              <button type="button" id="reset-graph-btn" class="btn-subtle">
+                Reset orbit
+              </button>
             </div>
 
             <div
@@ -169,6 +166,7 @@
               data-testid="graph-container"
               role="region"
               tabindex="-1"
+              aria-describedby="graph-instructions"
               aria-label="Interactive 3D Git Commit Graph. Drag to orbit, hover or tap a commit node to inspect."
             >
               <canvas id="commit-graph-canvas" data-testid="commit-graph-canvas"></canvas>
@@ -204,7 +202,12 @@
 
             <!-- Accessible Node Selector Strip (allows keyboard / tap inspection of commits) -->
             <div class="stage-bottombar">
-              <span class="mono-label">COMMIT SEQUENCE:</span>
+              <div class="stage-bottombar-label">
+                <span class="mono-label">COMMIT SEQUENCE:</span>
+                <span id="graph-instructions" class="graph-accessibility-note">
+                  Prefer text controls? Select a commit below with a keyboard or pointer.
+                </span>
+              </div>
               <div
                 id="commit-node-buttons"
                 class="commit-node-buttons"
@@ -352,10 +355,14 @@
                 Interactive 3D Git commit history visualizer built with Three.js v0.160.0 ES modules, OrbitControls,
                 and an automatic 2D SVG fallback.
               </p>
+              <p class="project-proof">
+                <span class="mono-label">LEARNING SIGNAL</span>
+                Separates commit data, rendering, and an accessible fallback.
+              </p>
               <div class="project-card-footer">
                 <span class="mono-meta">HTML · CSS · THREE.JS</span>
                 <a
-                  href="https://github.com/botchan-dev/commit-graph-3d"
+                  href="https://github.com/imansetia/botchan"
                   class="project-link"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -376,10 +383,14 @@
                 Minimalist Vanilla JS architectural study comparing event-bus patterns, immutable state trees, and
                 unidirectional data flow without frameworks.
               </p>
+              <p class="project-proof">
+                <span class="mono-label">LEARNING SIGNAL</span>
+                Tests modular state patterns without a framework abstraction.
+              </p>
               <div class="project-card-footer">
                 <span class="mono-meta">VANILLA JS · ES MODULES</span>
                 <a
-                  href="https://github.com/botchan-dev/state-tree-sandbox"
+                  href="https://github.com/imansetia/botchan"
                   class="project-link"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -400,10 +411,14 @@
                 Plain-text field guide and shell script collection documenting branching workflows, rebasing diagrams,
                 and clean commit hygiene.
               </p>
+              <p class="project-proof">
+                <span class="mono-label">LEARNING SIGNAL</span>
+                Turns Git workflow experiments into reusable notes and scripts.
+              </p>
               <div class="project-card-footer">
                 <span class="mono-meta">GIT · SHELL · MARKDOWN</span>
                 <a
-                  href="https://github.com/botchan-dev/git-worktree-notes"
+                  href="https://github.com/imansetia/botchan"
                   class="project-link"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -474,7 +489,7 @@
           <a href="mailto:hello@botchan.tech" class="footer-link">hello@botchan.tech</a>
           <span class="mono-meta" aria-hidden="true">/</span>
           <a
-            href="https://github.com/botchan-dev"
+            href="https://github.com/imansetia"
             class="footer-link"
             target="_blank"
             rel="noopener noreferrer"
