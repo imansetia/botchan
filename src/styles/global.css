@@ -405,6 +405,15 @@ h1.cover-title {
   box-shadow: 0 20px 44px rgba(0, 0, 0, 0.55);
 }
 
+.lining svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--brass-dim);
+  border-radius: 4px;
+  box-shadow: 0 20px 44px rgba(0, 0, 0, 0.55);
+}
+
 .lining {
   margin: 0;
 }

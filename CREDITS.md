@@ -4,12 +4,12 @@ Daftar aset yang dipakai situs botchan.tech, sumbernya, dan lisensinya.
 
 ## Aset buatan sendiri
 
-- `public/art/island-dusk.png` dan `public/art/pail-towel.png` — render uji Blender dari
-  pipeline skrip `blender/` (percobaan redesign sebelumnya, branch `redesign-v2`, tahap 4,
-  November 2026). Dipakai ulang sebagai seni cetak di dalam laci sesuai keputusan Iman
-  (7 November 2026): adegan 3D menjadi cetakan sampul, tanpa three.js.
-- Siluet pulau pada sampul utama, tumpukan korek, panah, dan `public/favicon.svg` —
-  SVG buatan sendiri.
+- Seluruh seni situs — label korek "Aoshima" (pulau), label "The Pail — Empty" (ember dan
+  handuk), siluet pulau pada sampul utama, tumpukan korek, panah, dan `public/favicon.svg` —
+  adalah SVG buatan sendiri (November 2026) dalam bahasa cetak spot-color kotak korek
+  Jepang lama. Render uji Blender dari percobaan redesign sebelumnya (branch
+  `redesign-v2`) sempat dipakai sebagai cetakan, lalu ditarik dan diganti label vektor
+  atas permintaan Iman (7 November 2026); aslinya tetap terarsip di branch tersebut.
 
 ## Aset pihak ketiga
 

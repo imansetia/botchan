@@ -130,13 +130,32 @@ const heading = projects.length ? 'In the pail.' : 'Nothing in the pail yet.';
           </p>
         </div>
         <figure class="lining">
-          <img
-            src="/art/island-dusk.png"
-            alt="Printed art: a pine island silhouette on a calm sea at dusk"
-            width="640"
-            height="430"
-            loading="lazy"
-          />
+          <svg viewBox="0 0 640 430" role="img" aria-label="Flat print: a pine island at dusk, the sun low behind it">
+            <rect x="0" y="0" width="640" height="430" fill="#12100D"></rect>
+            <rect x="14" y="14" width="612" height="402" fill="none" stroke="#C9A227" stroke-width="2"></rect>
+            <rect x="22" y="22" width="596" height="386" fill="none" stroke="#C9A227" stroke-width="0.75"></rect>
+            <text x="44" y="52" fill="#A5977F" font-size="12" letter-spacing="4" font-family="Barlow Semi Condensed, Arial, sans-serif">FROM THE NOVEL · 1906</text>
+            <!-- dusk sun -->
+            <circle cx="320" cy="268" r="62" fill="#C9A227"></circle>
+            <!-- island silhouette over the sun -->
+            <path d="M96 300 L188 196 L246 244 L320 150 L396 244 L470 196 L544 300 Z" fill="#0E0A08"></path>
+            <!-- pines: stacked flat triangles -->
+            <path d="M320 150 L304 186 L336 186 Z" fill="#0E0A08"></path>
+            <path d="M312 176 L296 210 L328 210 Z" fill="#0E0A08"></path>
+            <path d="M470 196 L458 222 L482 222 Z" fill="#0E0A08"></path>
+            <path d="M464 214 L452 240 L476 240 Z" fill="#0E0A08"></path>
+            <!-- stones -->
+            <path d="M180 300 q14 -18 30 0 Z" fill="#0E0A08"></path>
+            <path d="M430 300 q10 -13 22 0 Z" fill="#0E0A08"></path>
+            <!-- sea line + sun reflection dashes -->
+            <line x1="40" y1="300" x2="600" y2="300" stroke="#C9A227" stroke-width="2"></line>
+            <line x1="288" y1="322" x2="352" y2="322" stroke="#C9A227" stroke-width="3" opacity="0.8"></line>
+            <line x1="296" y1="338" x2="344" y2="338" stroke="#C9A227" stroke-width="2.5" opacity="0.55"></line>
+            <line x1="304" y1="353" x2="336" y2="353" stroke="#C9A227" stroke-width="2" opacity="0.35"></line>
+            <line x1="60" y1="322" x2="150" y2="322" stroke="#C9A227" stroke-width="1.5" opacity="0.35"></line>
+            <line x1="480" y1="322" x2="570" y2="322" stroke="#C9A227" stroke-width="1.5" opacity="0.35"></line>
+            <text x="320" y="392" fill="#C9A227" font-size="17" letter-spacing="6" text-anchor="middle" font-family="Barlow Semi Condensed, Arial, sans-serif">AOSHIMA — STONES &amp; PINES</text>
+          </svg>
           <figcaption>Printed inside the drawer — the island, as the book left it.</figcaption>
         </figure>
       </div>
@@ -155,14 +174,34 @@ const heading = projects.length ? 'In the pail.' : 'Nothing in the pail yet.';
           ))
         }
       </div>
-      <figure class="lining" style="margin-top: 34px; max-width: 520px;">
-        <img
-          src="/art/pail-towel.png"
-          alt="Printed art: a wooden pail with a red towel draped over its rim"
-          width="640"
-          height="430"
-          loading="lazy"
-        />
+      <figure class="lining" style="margin-top: 34px; max-width: 480px;">
+        <svg viewBox="0 0 480 400" role="img" aria-label="Flat print: the wooden pail, empty, with the faded-edge red towel over its rim">
+          <rect x="0" y="0" width="480" height="400" fill="#12100D"></rect>
+          <rect x="14" y="14" width="452" height="372" fill="none" stroke="#C9A227" stroke-width="2"></rect>
+          <rect x="22" y="22" width="436" height="356" fill="none" stroke="#C9A227" stroke-width="0.75"></rect>
+          <text x="240" y="52" fill="#A5977F" font-size="12" letter-spacing="4" text-anchor="middle" font-family="Barlow Semi Condensed, Arial, sans-serif">BOTCHAN MATCH CO.</text>
+          <!-- oxblood seal disc behind the pail -->
+          <circle cx="240" cy="204" r="104" fill="#4A1F1B"></circle>
+          <!-- pail body: tapered wooden slats -->
+          <path d="M166 132 L314 132 L294 268 L186 268 Z" fill="#6E4A2E"></path>
+          <line x1="206" y1="134" x2="212" y2="266" stroke="#4E3420" stroke-width="2"></line>
+          <line x1="240" y1="134" x2="240" y2="266" stroke="#4E3420" stroke-width="2"></line>
+          <line x1="274" y1="134" x2="268" y2="266" stroke="#4E3420" stroke-width="2"></line>
+          <!-- two dark hoops -->
+          <path d="M171 160 L309 160 L307 172 L173 172 Z" fill="#2A2620"></path>
+          <line x1="173" y1="160" x2="307" y2="160" stroke="#8A6F4A" stroke-width="1.5"></line>
+          <path d="M180 224 L300 224 L298 236 L182 236 Z" fill="#2A2620"></path>
+          <line x1="182" y1="224" x2="298" y2="224" stroke="#8A6F4A" stroke-width="1.5"></line>
+          <!-- rim and the empty dark inside -->
+          <ellipse cx="240" cy="132" rx="76" ry="13" fill="#7A5433"></ellipse>
+          <ellipse cx="240" cy="132" rx="60" ry="9" fill="#120B08"></ellipse>
+          <!-- the towel: red, draped over the rim, its edge faded from washing -->
+          <path d="M196 128 L284 128 L284 134 L196 137 Z" fill="#8E2A20"></path>
+          <path d="M196 137 L284 134 L284 172 Q240 184 196 170 Z" fill="#C43A2E"></path>
+          <path d="M199 165 Q240 179 281 168" fill="none" stroke="#D98268" stroke-width="7" stroke-linecap="round"></path>
+          <text x="240" y="346" fill="#C9A227" font-size="17" letter-spacing="6" text-anchor="middle" font-family="Barlow Semi Condensed, Arial, sans-serif">THE PAIL — EMPTY</text>
+          <text x="240" y="368" fill="#A5977F" font-size="10" letter-spacing="3" text-anchor="middle" font-family="Barlow Semi Condensed, Arial, sans-serif">TOWEL OVER THE RIM · EDGE FADED FROM WASHING</text>
+        </svg>
         <figcaption>The pail itself — empty, towel over the rim.</figcaption>
       </figure>
     </Compartment>
