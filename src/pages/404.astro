@@ -1,0 +1,22 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Compartment from '../components/Compartment.astro';
+---
+
+<BaseLayout title="Not found — Botchan" description="No matchbook by this name.">
+  <Header />
+  <main id="main">
+    <Compartment plate="Not found — empty slot">
+      <h1 class="script-h foil">No matchbook by this name.</h1>
+      <div class="prose">
+        <p>
+          The drawer holds three slots, and none of them is this one. The cover may have been
+          misprinted, or the name never existed. <a class="inline" href="/">Back to the drawer</a>.
+        </p>
+      </div>
+    </Compartment>
+  </main>
+  <Footer />
+</BaseLayout>

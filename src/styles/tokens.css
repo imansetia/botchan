@@ -1,0 +1,38 @@
+/* Design tokens — dunia "Laci Korek" (matchbook drawer)
+   Ditetapkan dari direction contract: .impeccable/surfaces/src-pages-index-astro.md */
+
+:root {
+  /* konter & laci */
+  --ground: #17100C;
+  --ground-deep: #100A07;
+  --walnut-hi: #4A3222;
+  --walnut: #3A2A1E;
+  --walnut-lo: #2E2016;
+  --brass-line: rgba(201, 162, 39, 0.22);
+  --brass-dim: rgba(201, 162, 39, 0.12);
+
+  /* sampul korek */
+  --ox: #4A1F1B;
+  --ox-hi: #5A2620;
+  --green: #1E3A2E;
+  --green-hi: #24473A;
+  --ink: #121010;
+  --ink-hi: #1C1A18;
+
+  /* foil emas & kertas korek */
+  --gold: #C9A227;
+  --gold-hi: #F2DC96;
+  --gold-lo: #8A6F24;
+  --paper: #EFE3CB;
+  --paper-dim: #A5977F;
+  --striker: #565650;
+  --striker-hi: #6E6E68;
+
+  /* merah handuk — hanya kepala korek dan kata NEXT */
+  --red: #C43A2E;
+  --red-text: #E06A50;
+
+  /* huruf */
+  --font-script: 'Grand Hotel', 'Segoe Script', cursive;
+  --font-label: 'Barlow Semi Condensed', 'Arial Narrow', sans-serif;
+}

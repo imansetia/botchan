@@ -1,0 +1,21 @@
+{
+  "name": "botchan",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.4",
+    "@fontsource/barlow-semi-condensed": "^5.2.0",
+    "@fontsource/grand-hotel": "^5.2.0",
+    "astro": "^7.4.5"
+  }
+}

@@ -1,0 +1,66 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects', (entry) => !entry.data.draft);
+  return projects.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { title, number, summary, date, stack, repo, live } = entry.data;
+const { Content } = await render(entry);
+const no = `No. ${String(number).padStart(3, '0')}`;
+---
+
+<BaseLayout title={`${title} — Botchan`} description={summary}>
+  <Header />
+  <main id="main">
+    <article class="compartment">
+      <div class="plate"><span>{no} — from the drawer</span></div>
+      <h1 class="script-h foil">{title}</h1>
+      <p class="lead-p">{summary}</p>
+      <div class="metarow">
+        <span>
+          {
+            date.toLocaleDateString('en-US', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+            })
+          }
+        </span>
+        {stack && stack.length > 0 && <span>{stack.join(' · ')}</span>}
+        {
+          repo && (
+            <a href={repo}>
+              repo
+              <svg class="arrow" viewBox="0 0 12 12" width="10" height="10" aria-hidden="true">
+                <path d="M2 10 L10 2 M4 2 h6 v6" fill="none" stroke="currentColor" stroke-width="1.5" />
+              </svg>
+            </a>
+          )
+        }
+        {
+          live && (
+            <a href={live}>
+              live
+              <svg class="arrow" viewBox="0 0 12 12" width="10" height="10" aria-hidden="true">
+                <path d="M2 10 L10 2 M4 2 h6 v6" fill="none" stroke="currentColor" stroke-width="1.5" />
+              </svg>
+            </a>
+          )
+        }
+      </div>
+      <div class="body-md">
+        <Content />
+      </div>
+      <p class="backline">
+        <a class="inline" href="/#pail">Back to the drawer</a>
+      </p>
+    </article>
+  </main>
+  <Footer />
+</BaseLayout>
