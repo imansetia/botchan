@@ -1,0 +1,151 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { getCollection } from 'astro:content';
+
+const projects = (
+  await getCollection('projects', (entry) => !entry.data.draft)
+).sort((a, b) => a.data.number - b.data.number);
+
+interface Slot {
+  no: string;
+  label: string;
+  caption: string;
+  reserved: boolean;
+  href?: string;
+}
+
+const slots: Slot[] = [];
+let n = 1;
+for (const project of projects) {
+  slots.push({
+    no: `No. ${String(n).padStart(3, '0')}`,
+    label: project.data.title,
+    caption: project.data.summary,
+    reserved: false,
+    href: `/projects/${project.id}/`,
+  });
+  n += 1;
+}
+slots.push({
+  no: `No. ${String(n).padStart(3, '0')}`,
+  label: slots.length ? 'Next' : 'Reserved',
+  caption: slots.length
+    ? 'The next project starts here.'
+    : 'The first project starts when this site is finished.',
+  reserved: true,
+});
+n += 1;
+while (slots.length < 3) {
+  slots.push({
+    no: `No. ${String(n).padStart(3, '0')}`,
+    label: 'Empty',
+    caption: 'Empty.',
+    reserved: false,
+  });
+  n += 1;
+}
+
+const heading = projects.length ? 'In the pail.' : 'Nothing in the pail yet.';
+---
+
+<BaseLayout>
+  <Header />
+  <main id="main">
+    <section class="hero" aria-label="Introduction">
+      <p class="micro kicker">Botchan · est. 1906 · Matsuyama</p>
+      <h1>Botchan</h1>
+      <p class="tagline">A workshop for things that don't exist yet.</p>
+      <p class="credit-v" aria-hidden="true">夏目漱石『坊っちゃん』一九〇六年</p>
+      <svg
+        class="island"
+        viewBox="0 0 1100 400"
+        preserveAspectRatio="xMidYMax slice"
+        role="img"
+        aria-label="Ink-wash illustration: a pine island rising from misty mountains"
+      >
+        <!-- ridges jauh: lapisan tinta tipis, rendah dan tenang -->
+        <path d="M0 330 L170 272 L330 316 L510 258 L690 318 L870 272 L1100 330 L1100 400 L0 400 Z" fill="currentColor" opacity="0.1"></path>
+        <path d="M0 352 L210 306 L390 342 L600 292 L810 344 L1100 300 L1100 400 L0 400 Z" fill="currentColor" opacity="0.18"></path>
+        <!-- pulau terdekat: punggung batu rendah -->
+        <path d="M0 400 L180 352 L320 372 L430 330 L540 366 L660 336 L800 376 L900 358 L1100 396 L1100 400 L0 400 Z" fill="currentColor" opacity="0.85"></path>
+        <!-- dua pinus: langsing, berdiri di punggung -->
+        <path d="M430 296 L416 322 L444 322 Z" fill="currentColor"></path>
+        <path d="M430 310 L410 338 L450 338 Z" fill="currentColor"></path>
+        <path d="M660 312 L648 332 L672 332 Z" fill="currentColor"></path>
+        <path d="M660 324 L644 346 L676 346 Z" fill="currentColor"></path>
+      </svg>
+      <p class="hint">Scroll</p>
+    </section>
+
+    <section class="band" id="name">
+      <span class="micro">The Name — inside cover</span>
+      <h2 class="script-h">The name</h2>
+      <div class="prose">
+        <p>
+          Botchan is borrowed from Natsume Sōseki's 1906 novel. Its narrator, a hot-headed
+          young man from Tokyo, takes a job teaching mathematics in Matsuyama, goes to the
+          hot springs every day, and gets nicknamed Red Towel for what he carries there.
+        </p>
+        <p>
+          The pine island and the red towel come from the book. The pail doesn't. It's where
+          the projects go.
+        </p>
+      </div>
+    </section>
+
+    <section class="band" id="pail">
+      <span class="micro">The Pail — catalog</span>
+      <h2 class="script-h">{heading}</h2>
+      <div class="shelfwrap">
+        <div class="shelf">
+          {
+            slots.map((slot) => (
+              <div class={`spine${slot.reserved ? ' reserved' : ''}`}>
+                <span class="no">{slot.no}</span>
+              </div>
+            ))
+          }
+        </div>
+        {
+          slots.map((slot) => (
+            <p class="shelfnote">
+              <strong>{slot.no}</strong> — {slot.caption}
+              {slot.href && (
+                <a href={slot.href}>
+                  {slot.label} <svg class="arrow" viewBox="0 0 12 12" width="10" height="10" aria-hidden="true"><path d="M2 10 L10 2 M4 2 h6 v6" fill="none" stroke="currentColor" stroke-width="1.5" /></svg>
+                </a>
+              )}
+            </p>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="band" id="doors">
+      <span class="micro">Two Doors — open late</span>
+      <div class="doors">
+        <a class="door" href="https://imansetia.page" rel="me">
+          <span class="title">The Library</span>
+          <span class="meta">
+            <span class="hide-sm">imansetia.page</span>
+            <svg class="arrow" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true">
+              <path d="M2 10 L10 2 M4 2 h6 v6" fill="none" stroke="currentColor" stroke-width="1.5" />
+            </svg>
+          </span>
+        </a>
+        <a class="door" href="https://github.com/imansetia" rel="me">
+          <span class="title">GitHub</span>
+          <span class="meta">
+            <span class="hide-sm">github.com/imansetia</span>
+            <svg class="arrow" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true">
+              <path d="M2 10 L10 2 M4 2 h6 v6" fill="none" stroke="currentColor" stroke-width="1.5" />
+            </svg>
+          </span>
+        </a>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>

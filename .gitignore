@@ -1,0 +1,25 @@
+# Dependensi dan hasil build
+node_modules/
+dist/
+.astro/
+
+# Alat coding lokal (bukan bagian situs)
+.agents/
+.claude/
+.codex/
+.zcode/
+.impeccable/
+.mcp.json
+.graphifyignore
+.playwright-mcp/
+graphify-out/
+
+# Blender dan render mentah (arsip percobaan lama; skrip aslinya ada di branch redesign-v2)
+*.blend
+*.blend1
+renders/
+blender/
+
+# Sistem operasi
+Thumbs.db
+.DS_Store

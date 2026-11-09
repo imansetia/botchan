@@ -1,0 +1,22 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout title="Not found — Botchan" description="No page by this name.">
+  <Header />
+  <main id="main">
+    <section class="band" style="padding-top: clamp(64px, 12vh, 120px);">
+      <span class="micro">Not found</span>
+      <h1 class="script-h">No page by this name.</h1>
+      <div class="prose">
+        <p>
+          The drawer holds three slots, and none of them is this one. The page may have been
+          misprinted, or the name never existed. <a class="inline" href="/">Back to the drawer</a>.
+        </p>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>
