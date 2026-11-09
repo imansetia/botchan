@@ -6,6 +6,7 @@
   /* kertas */
   --paper: #f5f0e6;
   --paper-deep: #ede5d6;
+  --spine-paper: #fbf8f1;
 
   /* tinta */
   --ink: #26221c;
@@ -15,8 +16,24 @@
 
   /* merah handuk — aksen tunggal, hemat */
   --red: #a83c2c;
+  --accent: #a83c2c; /* merah yang aman untuk teks/hover di tema aktif */
 
   /* huruf */
   --font-serif: 'Shippori Mincho', 'Georgia', serif;
   --font-label: 'Barlow Semi Condensed', 'Arial Narrow', sans-serif;
+}
+
+/* Mode gelap: tinta malam — kertas dan tinta bertukar tempat.
+   Gunung cuci tinta ikut terbalik karena ilustrasi memakai currentColor. */
+:root[data-theme='dark'] {
+  --paper: #1e1a15;
+  --paper-deep: #2a251e;
+  --ink: #efe9dc;
+  --ink-soft: #b3aa9a;
+  --ink-faint: #847b6c;
+  --rule: #453f35;
+  --red: #c9553f;
+  --accent: #e07a63;
+  --spine-paper: #2b2620;
+  color-scheme: dark;
 }

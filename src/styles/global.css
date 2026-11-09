@@ -29,7 +29,7 @@ body {
 }
 
 :focus-visible {
-  outline: 2px solid var(--red);
+  outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
 
@@ -101,7 +101,40 @@ img {
 }
 
 .sitehead nav a:hover {
-  color: var(--red);
+  color: var(--accent);
+}
+
+/* Saklar terang/gelap: kotak rambut dengan ikon gambar sendiri */
+.themetoggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: 1px solid var(--rule);
+  border-radius: 0;
+  color: var(--ink-soft);
+  cursor: pointer;
+  padding: 0;
+}
+
+.themetoggle:hover {
+  color: var(--accent);
+  border-color: var(--ink-soft);
+}
+
+:root[data-theme='dark'] .icon-sun {
+  display: none;
+}
+
+:root[data-theme='light'] .icon-moon,
+:root:not([data-theme]) .icon-moon {
+  display: none;
+}
+
+.island {
+  color: var(--ink);
 }
 
 main {
@@ -204,8 +237,8 @@ main {
 
 .prose a:hover,
 .inline:hover {
-  color: var(--red);
-  text-decoration-color: var(--red);
+  color: var(--accent);
+  text-decoration-color: var(--accent);
 }
 
 .lead-p {
@@ -232,7 +265,7 @@ main {
   position: relative;
   width: clamp(56px, 7vw, 84px);
   height: clamp(170px, 24vw, 230px);
-  background: #fbf8f1;
+  background: var(--spine-paper);
   border: 1px solid var(--rule);
   border-bottom: none;
   display: flex;
@@ -252,7 +285,7 @@ main {
 }
 
 .spine.reserved {
-  background: #fffdf7;
+  background: var(--spine-paper);
   border-color: var(--ink-soft);
   transform: translateY(-10px);
   box-shadow: 0 12px 24px rgba(38, 34, 28, 0.1);
@@ -319,11 +352,11 @@ main {
 }
 
 .door:hover .title {
-  color: var(--red);
+  color: var(--accent);
 }
 
 .door:hover .meta {
-  color: var(--red);
+  color: var(--accent);
 }
 
 .arrow {
@@ -356,7 +389,7 @@ main {
 }
 
 .metarow a:hover {
-  color: var(--red);
+  color: var(--accent);
 }
 
 .body-md {
@@ -437,9 +470,6 @@ main {
 
 /* Responsif */
 @media (max-width: 640px) {
-  body {
-    font-size: 16px;
-  }
   .credit-v {
     display: none;
   }

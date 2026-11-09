@@ -23,9 +23,17 @@ const {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="color-scheme" content="dark" />
+    <meta name="color-scheme" content="light dark" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+    <script is:inline>
+      // Tema ditetapkan sebelum cat pertama: pilihan tersimpan, atau ikuti sistem.
+      (function () {
+        var saved = localStorage.getItem('botchan-theme');
+        var theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.dataset.theme = theme;
+      })();
+    </script>
     <meta name="description" content={description} />
     <meta name="author" content="Botchan" />
     <meta property="og:type" content="website" />
@@ -43,5 +51,18 @@ const {
   <body>
     <a class="skip" href="#main">Skip to content</a>
     <slot />
+    <script is:inline>
+      // Saklar tema: balik data-theme dan simpan.
+      var themeToggle = document.querySelector('.themetoggle');
+      if (themeToggle) {
+        themeToggle.addEventListener('click', function () {
+          var next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+          document.documentElement.dataset.theme = next;
+          try {
+            localStorage.setItem('botchan-theme', next);
+          } catch (e) {}
+        });
+      }
+    </script>
   </body>
 </html>

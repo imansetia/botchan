@@ -28,11 +28,40 @@ typography:
     fontSize: "17px"
     fontWeight: 400
     lineHeight: 1.9
+  tagline:
+    fontFamily: "'Shippori Mincho', Georgia, serif"
+    fontSize: "19px"
+    fontWeight: 400
+    lineHeight: 1.9
+  door:
+    fontFamily: "'Shippori Mincho', Georgia, serif"
+    fontSize: "18px"
+    fontWeight: 500
+    lineHeight: 1.9
+  credit:
+    fontFamily: "'Shippori Mincho', Georgia, serif"
+    fontSize: "13px"
+    fontWeight: 400
+    lineHeight: 1.9
+    letterSpacing: "0.34em"
   label:
     fontFamily: "'Barlow Semi Condensed', 'Arial Narrow', sans-serif"
     fontSize: "11px"
     fontWeight: 500
     letterSpacing: "0.28em"
+  label-small:
+    fontFamily: "'Barlow Semi Condensed', 'Arial Narrow', sans-serif"
+    fontSize: "10px"
+    fontWeight: 500
+    letterSpacing: "0.3em"
+  shelfnote:
+    fontFamily: "'Shippori Mincho', Georgia, serif"
+    fontSize: "15px"
+    fontWeight: 400
+    lineHeight: 1.9
+  code:
+    fontFamily: "'Courier New', monospace"
+    fontWeight: 400
 spacing:
   sm: "16px"
   md: "32px"
@@ -78,6 +107,21 @@ lives in the objects, never in vintage effects applied to the page.
 The palette is paper and ink: warm off-whites carry the page, warm near-black does
 all the talking, and a single ink-red marks the one thing that matters.
 
+The system has **two themes**, Day and Night, driven by `data-theme` on `<html>`
+(user toggle, persisted; system preference is the default). Night simply swaps the
+paper and ink — the same tokens, inverted — so the ink-wash island reads as chalk
+on a night wall. Red lifts slightly at night for contrast; hovers and focus use
+`--accent` (Day: the towel red itself, Night: a lighter ember).
+
+### Night Theme (dark mode token mapping)
+- **Ground** (`--paper` → #1e1a15): deep warm ink-black, the wall at night.
+- **Ink** (`--ink` → #efe9dc): paper-colored text and illustration — the island
+  becomes chalk (the SVG uses `currentColor`).
+- **Ink Soft/Faint** (#b3aa9a / #847b6c), **Rule** (#453f35): same roles, night
+  values.
+- **Towel Red** (`--red` → #c9553f) for the ribbon; **accent** (#e07a63) for text
+  hovers and focus.
+
 ### Primary
 - **Ink** (#26221c): all headings, body text, rules that must be seen, and the
   ink-wash illustration layers. It is the page's only loud voice.
@@ -118,9 +162,15 @@ and sharp serifs do the decoration so nothing else has to.
 - **Display** (500, clamp(64px–132px), 1.05): the wordmark "Botchan" only.
 - **Heading** (500, clamp(34px–52px), 1.3): section titles ("The name",
   "Nothing in the pail yet.").
-- **Body** (400, 17px, 1.9): prose, max 62ch.
-- **Label** (Barlow Semi Condensed 500, 10–11px, 0.24–0.34em, uppercase): section
-  markers, meta rows, footer. Every label is information, never an eyebrow.
+- **Tagline** (400, 19px, 1.9): the hero tagline, set in Ink Soft.
+- **Body** (400, 17px, 1.9): prose, max 62ch (16px under 640px).
+- **Door** (500, 18px, 1.9): door-row titles; **Lead** (400, 18px) for project
+  summaries.
+- **Credit** (400, 13px, 0.34em): the vertical Japanese novel credit on the hero.
+- **Label** (Barlow Semi Condensed 500, 11px, 0.28em, uppercase): section
+  markers, meta rows. Every label is information, never an eyebrow.
+- **Label Small** (Barlow Semi Condensed 500, 10px, 0.3em, uppercase): spine
+  numbers and footer labels — the quietest voice.
 
 ### Named Rules
 **The Museum Label Rule.** Micro-labels are placed like wall labels — small, tracked,
@@ -190,9 +240,11 @@ rounded cards anywhere.
 - **Do** set every label in tracked uppercase micro-caps and keep it factual.
 
 ### Don't:
-- **Don't** introduce dark grounds, gold foil, glows, or script/foil fonts — the
-  earlier direction was rejected by the owner as tacky; these are its fingerprints.
+- **Don't** reintroduce the rejected direction's fingerprints: gold foil, glows,
+  script/foil fonts, ornamental borders, walnut-restaurant grounds.
 - **Don't** add gradient text, drop shadows on flat surfaces, or rounded cards.
 - **Don't** use more than one red element per screen, and never red as a field.
 - **Don't** fake ink texture with filters (feTurbulence, brush strokes); layering
   flat opacity is the ink.
+- **Don't** add new colors outside the two themes' token sets; a new shade must
+  earn a token in both Day and Night.
