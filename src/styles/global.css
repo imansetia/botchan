@@ -312,11 +312,11 @@ main {
   max-width: 52ch;
 }
 
-/* Dua pintu — baris tenang bergaris rambut */
+/* Dua pintu — baris tenang: garis dari tepi ke tepi, tanpa ujung menggantung.
+   Setiap baris bergaris di ATAS saja; garis footer yang menutup halaman. */
 .doors {
   display: grid;
   gap: 0;
-  max-width: 720px;
 }
 
 .door {
@@ -325,14 +325,10 @@ main {
   justify-content: space-between;
   gap: 16px;
   padding: 20px 4px;
-  border-bottom: 1px solid var(--rule);
+  border-top: 1px solid var(--rule);
   text-decoration: none;
   color: var(--ink);
   font-size: 18px;
-}
-
-.door:first-child {
-  border-top: 1px solid var(--rule);
 }
 
 .door .title {
