@@ -180,8 +180,11 @@ main {
 .island {
   display: block;
   width: 100%;
-  height: auto;
-  margin: clamp(28px, 5vh, 56px) calc(clamp(20px, 5vw, 72px) * -1) 0;
+  /* Tinggi dipatok: pemandangan tetap menjadi pita tenang di kaki layar
+     pada segala lebar — tidak membengkak mengikuti viewport.
+     xMidYMax slice menjaga gunung menempel ke dasar dan memangkas sisi. */
+  height: clamp(240px, 36vh, 380px);
+  margin: clamp(24px, 4vh, 48px) calc(clamp(20px, 5vw, 72px) * -1) 0;
 }
 
 .hint {
