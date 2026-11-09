@@ -2,42 +2,48 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import Compartment from '../components/Compartment.astro';
 import { getCollection } from 'astro:content';
 
 const projects = (
   await getCollection('projects', (entry) => !entry.data.draft)
 ).sort((a, b) => a.data.number - b.data.number);
 
-interface Row {
+interface Slot {
   no: string;
-  txt: string;
-  status: string;
-  red?: boolean;
+  label: string;
+  caption: string;
+  reserved: boolean;
   href?: string;
 }
 
-const rows: Row[] = [];
+const slots: Slot[] = [];
 let n = 1;
 for (const project of projects) {
-  rows.push({
+  slots.push({
     no: `No. ${String(n).padStart(3, '0')}`,
-    txt: `<a href="/projects/${project.id}/">${project.data.title}</a> — ${project.data.summary}`,
-    status: '—',
+    label: project.data.title,
+    caption: project.data.summary,
+    reserved: false,
+    href: `/projects/${project.id}/`,
   });
   n += 1;
 }
-rows.push({
+slots.push({
   no: `No. ${String(n).padStart(3, '0')}`,
-  txt: rows.length
-    ? 'Next. The next project starts here.'
-    : 'Reserved. The first project starts when this site is finished.',
-  status: 'NEXT',
-  red: true,
+  label: slots.length ? 'Next' : 'Reserved',
+  caption: slots.length
+    ? 'The next project starts here.'
+    : 'The first project starts when this site is finished.',
+  reserved: true,
 });
 n += 1;
-while (rows.length < 3) {
-  rows.push({ no: `No. ${String(n).padStart(3, '0')}`, txt: 'Empty.', status: '—' });
+while (slots.length < 3) {
+  slots.push({
+    no: `No. ${String(n).padStart(3, '0')}`,
+    label: 'Empty',
+    caption: 'Empty.',
+    reserved: false,
+  });
   n += 1;
 }
 
@@ -47,189 +53,99 @@ const heading = projects.length ? 'In the pail.' : 'Nothing in the pail yet.';
 <BaseLayout>
   <Header />
   <main id="main">
-    <section class="hero" aria-label="The matchbook drawer">
-      <div class="drawer">
-        <div class="drawerplate"><span>Matchbooks · est. 1906</span></div>
-        <div class="fan">
-          <article class="cover cover-ox fan-1">
-            <p class="cover-title">The Pail</p>
-            <p class="cover-meta">No. 001 · unstruck</p>
-            <div class="striker"></div>
-          </article>
-          <article class="cover cover-lead fan-2">
-            <h1 class="cover-title foil">Botchan</h1>
-            <p class="cover-meta">A workshop · est. 1906</p>
-            <svg
-              class="cover-skyline"
-              viewBox="0 0 250 60"
-              fill="none"
-              stroke="#C9A227"
-              stroke-width="2"
-              aria-hidden="true"
-            >
-              <path d="M6 58 L52 18 L80 40 L118 4 L162 40 L200 24 L244 58" />
-              <path d="M118 4 L110 19 L128 19" />
-              <ellipse cx="125" cy="57" rx="108" ry="4" stroke-width="1.4" />
-            </svg>
-            <div class="striker"></div>
-          </article>
-          <article class="cover cover-green fan-3">
-            <p class="cover-title">Two Doors</p>
-            <p class="cover-meta">Open late</p>
-            <div class="striker"></div>
-          </article>
-          <article class="cover cover-black fan-4">
-            <p class="cover-title">No. 002</p>
-            <p class="cover-meta">Empty · unstruck</p>
-            <div class="striker"></div>
-          </article>
-        </div>
-        <figure class="matches">
-          <svg class="matchart" viewBox="0 0 230 120" aria-hidden="true">
-            <g>
-              <g transform="rotate(-6 60 100)">
-                <rect x="8" y="96" width="104" height="10" rx="2" fill="#D8C49A" />
-                <circle cx="116" cy="101" r="8" fill="#C43A2E" />
-              </g>
-              <g transform="rotate(3 80 82)">
-                <rect x="30" y="78" width="104" height="10" rx="2" fill="#C9B58C" />
-                <circle cx="138" cy="83" r="8" fill="#B23428" />
-              </g>
-              <g transform="rotate(-2 70 62)">
-                <rect x="16" y="58" width="104" height="10" rx="2" fill="#D8C49A" />
-                <circle cx="124" cy="63" r="8" fill="#C43A2E" />
-              </g>
-              <g transform="rotate(5 96 44)">
-                <rect x="44" y="40" width="104" height="10" rx="2" fill="#C9B58C" />
-                <circle cx="152" cy="45" r="8" fill="#B23428" />
-              </g>
-              <g transform="rotate(-4 60 24)">
-                <rect x="14" y="20" width="104" height="10" rx="2" fill="#D8C49A" />
-                <circle cx="122" cy="25" r="8" fill="#C43A2E" />
-              </g>
-            </g>
-          </svg>
-          <figcaption>Nothing burned yet.<br />Every match still waiting.</figcaption>
-        </figure>
-      </div>
-      <p class="hint">Scroll — the drawer slides open</p>
+    <section class="hero" aria-label="Introduction">
+      <p class="micro kicker">Botchan · est. 1906 · Matsuyama</p>
+      <h1>Botchan</h1>
+      <p class="tagline">A workshop for things that don't exist yet.</p>
+      <p class="credit-v" aria-hidden="true">夏目漱石『坊っちゃん』一九〇六年</p>
+      <svg
+        class="island"
+        viewBox="0 0 1100 400"
+        preserveAspectRatio="xMidYMax slice"
+        role="img"
+        aria-label="Ink-wash illustration: a pine island rising from misty mountains"
+      >
+        <!-- ridges jauh: lapisan tinta tipis, rendah dan tenang -->
+        <path d="M0 330 L170 272 L330 316 L510 258 L690 318 L870 272 L1100 330 L1100 400 L0 400 Z" fill="#26221C" opacity="0.1"></path>
+        <path d="M0 352 L210 306 L390 342 L600 292 L810 344 L1100 300 L1100 400 L0 400 Z" fill="#26221C" opacity="0.18"></path>
+        <!-- pulau terdekat: punggung batu rendah -->
+        <path d="M0 400 L180 352 L320 372 L430 330 L540 366 L660 336 L800 376 L900 358 L1100 396 L1100 400 L0 400 Z" fill="#26221C" opacity="0.85"></path>
+        <!-- dua pinus: langsing, berdiri di punggung -->
+        <path d="M430 296 L416 322 L444 322 Z" fill="#26221C"></path>
+        <path d="M430 310 L410 338 L450 338 Z" fill="#26221C"></path>
+        <path d="M660 312 L648 332 L672 332 Z" fill="#26221C"></path>
+        <path d="M660 324 L644 346 L676 346 Z" fill="#26221C"></path>
+      </svg>
+      <p class="hint">Scroll</p>
     </section>
 
-    <Compartment plate="The Name — inside cover" id="name">
-      <h2 class="script-h foil">The name</h2>
-      <div class="about-grid">
-        <div class="prose">
-          <p>
-            Botchan is borrowed from Natsume Sōseki's 1906 novel. Its narrator, a hot-headed
-            young man from Tokyo, takes a job teaching mathematics in Matsuyama, goes to the
-            hot springs every day, and gets nicknamed Red Towel for what he carries there.
-          </p>
-          <p>
-            The pine island and the red towel come from the book. The pail doesn't. It's where
-            the projects go.
-          </p>
-        </div>
-        <figure class="lining">
-          <svg viewBox="0 0 640 430" role="img" aria-label="Flat print: a pine island at dusk, the sun low behind it">
-            <rect x="0" y="0" width="640" height="430" fill="#12100D"></rect>
-            <rect x="14" y="14" width="612" height="402" fill="none" stroke="#C9A227" stroke-width="2"></rect>
-            <rect x="22" y="22" width="596" height="386" fill="none" stroke="#C9A227" stroke-width="0.75"></rect>
-            <text x="44" y="52" fill="#A5977F" font-size="12" letter-spacing="4" font-family="Barlow Semi Condensed, Arial, sans-serif">FROM THE NOVEL · 1906</text>
-            <!-- dusk sun -->
-            <circle cx="320" cy="268" r="62" fill="#C9A227"></circle>
-            <!-- island silhouette over the sun -->
-            <path d="M96 300 L188 196 L246 244 L320 150 L396 244 L470 196 L544 300 Z" fill="#0E0A08"></path>
-            <!-- pines: stacked flat triangles -->
-            <path d="M320 150 L304 186 L336 186 Z" fill="#0E0A08"></path>
-            <path d="M312 176 L296 210 L328 210 Z" fill="#0E0A08"></path>
-            <path d="M470 196 L458 222 L482 222 Z" fill="#0E0A08"></path>
-            <path d="M464 214 L452 240 L476 240 Z" fill="#0E0A08"></path>
-            <!-- stones -->
-            <path d="M180 300 q14 -18 30 0 Z" fill="#0E0A08"></path>
-            <path d="M430 300 q10 -13 22 0 Z" fill="#0E0A08"></path>
-            <!-- sea line + sun reflection dashes -->
-            <line x1="40" y1="300" x2="600" y2="300" stroke="#C9A227" stroke-width="2"></line>
-            <line x1="288" y1="322" x2="352" y2="322" stroke="#C9A227" stroke-width="3" opacity="0.8"></line>
-            <line x1="296" y1="338" x2="344" y2="338" stroke="#C9A227" stroke-width="2.5" opacity="0.55"></line>
-            <line x1="304" y1="353" x2="336" y2="353" stroke="#C9A227" stroke-width="2" opacity="0.35"></line>
-            <line x1="60" y1="322" x2="150" y2="322" stroke="#C9A227" stroke-width="1.5" opacity="0.35"></line>
-            <line x1="480" y1="322" x2="570" y2="322" stroke="#C9A227" stroke-width="1.5" opacity="0.35"></line>
-            <text x="320" y="392" fill="#C9A227" font-size="17" letter-spacing="6" text-anchor="middle" font-family="Barlow Semi Condensed, Arial, sans-serif">AOSHIMA — STONES &amp; PINES</text>
-          </svg>
-          <figcaption>Printed inside the drawer — the island, as the book left it.</figcaption>
-        </figure>
+    <section class="band" id="name">
+      <span class="micro">The Name — inside cover</span>
+      <h2 class="script-h">The name</h2>
+      <div class="prose">
+        <p>
+          Botchan is borrowed from Natsume Sōseki's 1906 novel. Its narrator, a hot-headed
+          young man from Tokyo, takes a job teaching mathematics in Matsuyama, goes to the
+          hot springs every day, and gets nicknamed Red Towel for what he carries there.
+        </p>
+        <p>
+          The pine island and the red towel come from the book. The pail doesn't. It's where
+          the projects go.
+        </p>
       </div>
-    </Compartment>
+    </section>
 
-    <Compartment plate="The Pail — catalog drawer" id="pail">
-      <h2 class="script-h foil">{heading}</h2>
-      <div class="rows">
+    <section class="band" id="pail">
+      <span class="micro">The Pail — catalog</span>
+      <h2 class="script-h">{heading}</h2>
+      <div class="shelfwrap">
+        <div class="shelf">
+          {
+            slots.map((slot) => (
+              <div class={`spine${slot.reserved ? ' reserved' : ''}`}>
+                <span class="no">{slot.no}</span>
+              </div>
+            ))
+          }
+        </div>
         {
-          rows.map((row) => (
-            <div class="rowbook">
-              <span class="no">{row.no}</span>
-              <p class="txt" set:html={row.txt} />
-              <span class={`st${row.red ? ' red' : ''}`}>{row.status}</span>
-            </div>
+          slots.map((slot) => (
+            <p class="shelfnote">
+              <strong>{slot.no}</strong> — {slot.caption}
+              {slot.href && (
+                <a href={slot.href}>
+                  {slot.label} <svg class="arrow" viewBox="0 0 12 12" width="10" height="10" aria-hidden="true"><path d="M2 10 L10 2 M4 2 h6 v6" fill="none" stroke="currentColor" stroke-width="1.5" /></svg>
+                </a>
+              )}
+            </p>
           ))
         }
       </div>
-      <figure class="lining" style="margin-top: 34px; max-width: 480px;">
-        <svg viewBox="0 0 480 400" role="img" aria-label="Flat print: the wooden pail, empty, with the faded-edge red towel over its rim">
-          <rect x="0" y="0" width="480" height="400" fill="#12100D"></rect>
-          <rect x="14" y="14" width="452" height="372" fill="none" stroke="#C9A227" stroke-width="2"></rect>
-          <rect x="22" y="22" width="436" height="356" fill="none" stroke="#C9A227" stroke-width="0.75"></rect>
-          <text x="240" y="52" fill="#A5977F" font-size="12" letter-spacing="4" text-anchor="middle" font-family="Barlow Semi Condensed, Arial, sans-serif">BOTCHAN MATCH CO.</text>
-          <!-- oxblood seal disc behind the pail -->
-          <circle cx="240" cy="204" r="104" fill="#4A1F1B"></circle>
-          <!-- pail body: tapered wooden slats -->
-          <path d="M166 132 L314 132 L294 268 L186 268 Z" fill="#6E4A2E"></path>
-          <line x1="206" y1="134" x2="212" y2="266" stroke="#4E3420" stroke-width="2"></line>
-          <line x1="240" y1="134" x2="240" y2="266" stroke="#4E3420" stroke-width="2"></line>
-          <line x1="274" y1="134" x2="268" y2="266" stroke="#4E3420" stroke-width="2"></line>
-          <!-- two dark hoops -->
-          <path d="M171 160 L309 160 L307 172 L173 172 Z" fill="#2A2620"></path>
-          <line x1="173" y1="160" x2="307" y2="160" stroke="#8A6F4A" stroke-width="1.5"></line>
-          <path d="M180 224 L300 224 L298 236 L182 236 Z" fill="#2A2620"></path>
-          <line x1="182" y1="224" x2="298" y2="224" stroke="#8A6F4A" stroke-width="1.5"></line>
-          <!-- rim and the empty dark inside -->
-          <ellipse cx="240" cy="132" rx="76" ry="13" fill="#7A5433"></ellipse>
-          <ellipse cx="240" cy="132" rx="60" ry="9" fill="#120B08"></ellipse>
-          <!-- the towel: red, draped over the rim, its edge faded from washing -->
-          <path d="M196 128 L284 128 L284 134 L196 137 Z" fill="#8E2A20"></path>
-          <path d="M196 137 L284 134 L284 172 Q240 184 196 170 Z" fill="#C43A2E"></path>
-          <path d="M199 165 Q240 179 281 168" fill="none" stroke="#D98268" stroke-width="7" stroke-linecap="round"></path>
-          <text x="240" y="346" fill="#C9A227" font-size="17" letter-spacing="6" text-anchor="middle" font-family="Barlow Semi Condensed, Arial, sans-serif">THE PAIL — EMPTY</text>
-          <text x="240" y="368" fill="#A5977F" font-size="10" letter-spacing="3" text-anchor="middle" font-family="Barlow Semi Condensed, Arial, sans-serif">TOWEL OVER THE RIM · EDGE FADED FROM WASHING</text>
-        </svg>
-        <figcaption>The pail itself — empty, towel over the rim.</figcaption>
-      </figure>
-    </Compartment>
+    </section>
 
-    <Compartment plate="Two Doors — open late" id="doors">
+    <section class="band" id="doors">
+      <span class="micro">Two Doors — open late</span>
       <div class="doors">
-        <a class="door cover-green" href="https://imansetia.page" rel="me">
-          <span class="door-title">The Library</span>
-          <span class="door-meta">
+        <a class="door" href="https://imansetia.page" rel="me">
+          <span class="title">The Library</span>
+          <span class="meta">
             <span class="hide-sm">imansetia.page</span>
             <svg class="arrow" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true">
               <path d="M2 10 L10 2 M4 2 h6 v6" fill="none" stroke="currentColor" stroke-width="1.5" />
             </svg>
           </span>
-          <span class="striker"></span>
         </a>
-        <a class="door cover-ox" href="https://github.com/imansetia" rel="me">
-          <span class="door-title">GitHub</span>
-          <span class="door-meta">
+        <a class="door" href="https://github.com/imansetia" rel="me">
+          <span class="title">GitHub</span>
+          <span class="meta">
             <span class="hide-sm">github.com/imansetia</span>
             <svg class="arrow" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true">
               <path d="M2 10 L10 2 M4 2 h6 v6" fill="none" stroke="currentColor" stroke-width="1.5" />
             </svg>
           </span>
-          <span class="striker"></span>
         </a>
       </div>
-    </Compartment>
+    </section>
   </main>
   <Footer />
 </BaseLayout>
