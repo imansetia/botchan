@@ -141,11 +141,15 @@ main {
   padding: 0 clamp(20px, 5vw, 72px);
 }
 
-/* Pembuka: pulau tinta di kertas kosong */
+/* Pembuka: pulau tinta di kertas kosong.
+   Full-bleed: keluar dari padding main supaya ilustrasi benar-benar
+   menyentuh kedua tepi layar — tanpa ujung terpotong. */
 .hero {
   padding-top: clamp(40px, 7vh, 84px);
   text-align: center;
   position: relative;
+  margin-left: calc(clamp(20px, 5vw, 72px) * -1);
+  margin-right: calc(clamp(20px, 5vw, 72px) * -1);
 }
 
 .hero .kicker {
@@ -184,7 +188,8 @@ main {
      pada segala lebar — tidak membengkak mengikuti viewport.
      xMidYMax slice menjaga gunung menempel ke dasar dan memangkas sisi. */
   height: clamp(240px, 36vh, 380px);
-  margin: clamp(24px, 4vh, 48px) calc(clamp(20px, 5vw, 72px) * -1) 0;
+  margin: clamp(24px, 4vh, 48px) 0 0;
+  color: var(--ink);
 }
 
 .hint {
