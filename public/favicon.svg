@@ -1,10 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="12" fill="#17100C"/>
-  <rect x="12" y="14" width="40" height="32" rx="3" fill="#4A1F1B"/>
-  <rect x="12" y="14" width="40" height="32" rx="3" fill="none" stroke="#8A6F24" stroke-width="1.5"/>
-  <rect x="12" y="46" width="40" height="6" rx="2" fill="#565650"/>
-  <g transform="rotate(-20 32 30)">
-    <rect x="22" y="27" width="22" height="5" rx="2.5" fill="#D8C49A"/>
-    <circle cx="46" cy="29.5" r="4.5" fill="#C43A2E"/>
-  </g>
+  <!-- Botchan: matahari merah terbenam di balik pulau berpinus -->
+  <rect width="64" height="64" rx="14" fill="#F5F0E6"/>
+  <circle cx="32" cy="27" r="15" fill="#A83C2C"/>
+  <path d="M2 56 L18 36 L28 46 L40 24 L52 42 L62 34 L62 64 L2 64 Z" fill="#26221C"/>
+  <path d="M40 14 L33 26 L47 26 Z" fill="#26221C"/>
+  <path d="M40 21 L31 34 L49 34 Z" fill="#26221C"/>
 </svg>
